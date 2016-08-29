@@ -302,6 +302,7 @@ function dataset:size(class, list)
 end
 
 -- size(), size(class)
+print('running1')
 function dataset:sizeTrain(class)
    if self.split == 0 then
       return 0;
@@ -314,6 +315,7 @@ function dataset:sizeTrain(class)
 end
 
 -- size(), size(class)
+print('running2')
 function dataset:sizeTest(class)
    if self.split == 100 then
       return 0
@@ -326,6 +328,7 @@ function dataset:sizeTest(class)
 end
 
 -- by default, just load the image and return it
+print('running3')
 function dataset:defaultSampleHook(imgpath)
    local out = image.load(imgpath, 3, byte)
    out = image.scale(out, self.sampleSize[3], self.sampleSize[2])
@@ -333,6 +336,7 @@ function dataset:defaultSampleHook(imgpath)
 end
 
 -- getByClass
+print('running4')
 function dataset:getByClass(class)
    local index = math.ceil(torch.uniform() * self.classListSample[class]:nElement())
    local imgpath = ffi.string(torch.data(self.imagePath[self.classListSample[class][index]]))
@@ -340,6 +344,7 @@ function dataset:getByClass(class)
 end
 
 -- converts a table of samples (and corresponding labels) to a clean tensor
+print('running5')
 local function tableToOutput(self, dataTable, scalarTable)
    local data, scalarLabels, labels
    local quantity = #scalarTable
@@ -377,6 +382,7 @@ function dataset:get(i1, i2)
    end
    assert(quantity > 0)
    -- now that indices has been initialized, get the samples
+   print('running6')
    local dataTable = {}
    local scalarTable = {}
    for i=1,quantity do
@@ -391,6 +397,7 @@ function dataset:get(i1, i2)
    return data, scalarLabels, labels
 end
 
+print('running7')
 function dataset:test(quantity)
    if self.split == 100 then
       error('No test mode when you are not splitting the data')
